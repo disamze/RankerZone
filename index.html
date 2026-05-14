@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RankerZone</title>
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -35,11 +35,13 @@
       align-items:center;
       background:linear-gradient(135deg,#020617,#0f172a,#1e293b);
       z-index:999;
+      padding:20px;
     }
 
     .card{
-      width:390px;
-      background:rgba(15,23,42,0.95);
+      width:420px;
+      max-width:100%;
+      background:rgba(15,23,42,0.96);
       border:1px solid rgba(255,255,255,0.1);
       border-radius:25px;
       padding:35px;
@@ -69,18 +71,19 @@
     }
 
     .subtitle{
-      opacity:0.8;
+      opacity:0.85;
       margin-bottom:25px;
-      line-height:1.5;
+      line-height:1.6;
+      font-size:15px;
     }
 
     input{
       width:100%;
-      padding:14px;
+      padding:15px;
       border:none;
       outline:none;
       border-radius:12px;
-      margin-top:15px;
+      margin-top:10px;
       background:#111827;
       color:white;
       font-size:15px;
@@ -122,24 +125,30 @@
       background:#111827;
       border-radius:15px;
       padding:15px;
-      max-height:220px;
+      max-height:260px;
       overflow:auto;
     }
 
     .leaderboard h3{
       text-align:center;
-      margin-bottom:10px;
+      margin-bottom:15px;
       color:#38bdf8;
     }
 
     .leader-item{
       display:flex;
       justify-content:space-between;
+      align-items:center;
       margin:8px 0;
-      padding:10px;
+      padding:12px;
       background:#1e293b;
       border-radius:10px;
       font-size:14px;
+    }
+
+    .rank{
+      color:#38bdf8;
+      font-weight:bold;
     }
 
     .watermark{
@@ -151,6 +160,7 @@
       border-radius:12px;
       z-index:9999;
       backdrop-filter:blur(6px);
+      font-size:14px;
     }
 
   </style>
@@ -160,12 +170,14 @@
   <!-- NAME SCREEN -->
 
   <div class="screen" id="nameScreen">
+
     <div class="card">
 
       <div class="logo">RankerZone</div>
 
       <div class="subtitle">
-        Enter your name to continue
+        Welcome to RankerZone.<br><br>
+        Enter your name to continue.
       </div>
 
       <input
@@ -178,23 +190,25 @@
       </button>
 
     </div>
+
   </div>
 
   <!-- TELEGRAM SCREEN -->
 
   <div class="screen" id="telegramScreen" style="display:none;">
+
     <div class="card">
 
       <div class="logo">RankerZone</div>
 
       <div class="subtitle">
-        🔓 Access Locked
 
-        <br><br>
+        🔓 Access Locked<br><br>
 
-        Step 1: Join the official Telegram group<br>
+        Step 1: Join official Telegram group<br>
         Step 2: Return back to this page<br>
-        Step 3: Click Continue to access content
+        Step 3: Click Continue to access RankerZone
+
       </div>
 
       <a
@@ -202,100 +216,206 @@
         target="_blank"
         class="primary"
         id="joinBtn">
+
         Join Telegram
+
       </a>
 
       <button class="success" id="continueBtn">
+
         Continue to RankerZone
+
       </button>
 
       <!-- LEADERBOARD -->
 
       <div class="leaderboard">
 
-        <h3>🏆 Watch Time Leaderboard</h3>
+        <h3>🏆 Global Watch Time Leaderboard</h3>
 
         <div id="leaderboardList"></div>
 
       </div>
 
     </div>
+
   </div>
 
   <!-- IFRAME -->
 
   <iframe
     id="mainFrame"
-    src="https://eduvibe-nt.pages.dev/">
+    src="https://deltastudy.com/deltapro">
   </iframe>
 
   <div class="watermark">
+
     RankerZone
+
   </div>
 
-  <script>
+  <!-- FIREBASE -->
 
-    const nameScreen = document.getElementById("nameScreen");
-    const telegramScreen = document.getElementById("telegramScreen");
-    const mainFrame = document.getElementById("mainFrame");
+  <script type="module">
 
-    const saveName = document.getElementById("saveName");
-    const continueBtn = document.getElementById("continueBtn");
-    const joinBtn = document.getElementById("joinBtn");
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 
-    let startTime;
+    import { getAnalytics }
+    from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
 
-    // CHECK ACCESS
+    import {
 
-    if(localStorage.getItem("rankerzone_access") === "true"){
-
-      nameScreen.style.display = "none";
-      telegramScreen.style.display = "none";
-      mainFrame.style.display = "block";
-
-      startTracking();
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      collection,
+      onSnapshot
 
     }
 
-    // SAVE NAME
+    from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
-    saveName.addEventListener("click",()=>{
+    // FIREBASE CONFIG
 
-      const username = document.getElementById("username").value.trim();
+    const firebaseConfig = {
 
-      if(username.length < 2){
-        alert("Please enter your name");
-        return;
-      }
+      apiKey: "AIzaSyDmQiV3_6CdKZ48M18_15wEcAr0g_3iBrI",
 
-      localStorage.setItem("rankerzone_name",username);
+      authDomain: "rankerzone-92cfe.firebaseapp.com",
 
-      nameScreen.style.display = "none";
+      projectId: "rankerzone-92cfe",
 
-      // IF FIRST TIME
+      storageBucket: "rankerzone-92cfe.firebasestorage.app",
 
-      if(localStorage.getItem("rankerzone_access") !== "true"){
+      messagingSenderId: "494298642095",
 
-        telegramScreen.style.display = "flex";
+      appId: "1:494298642095:web:3d7a0ae53ff4b60610c65a",
 
-      }else{
+      measurementId: "G-1Z5KMJHNN4"
+
+    };
+
+    // INIT
+
+    const app = initializeApp(firebaseConfig);
+
+    const analytics = getAnalytics(app);
+
+    const db = getFirestore(app);
+
+    // ELEMENTS
+
+    const nameScreen =
+      document.getElementById("nameScreen");
+
+    const telegramScreen =
+      document.getElementById("telegramScreen");
+
+    const mainFrame =
+      document.getElementById("mainFrame");
+
+    const saveNameBtn =
+      document.getElementById("saveName");
+
+    const continueBtn =
+      document.getElementById("continueBtn");
+
+    const joinBtn =
+      document.getElementById("joinBtn");
+
+    // CHECK USER
+
+    const savedName =
+      localStorage.getItem("rankerzone_name");
+
+    const unlocked =
+      localStorage.getItem("rankerzone_access");
+
+    // SECOND VISIT
+
+    if(savedName){
+
+      if(unlocked === "true"){
+
+        nameScreen.style.display = "none";
+
+        telegramScreen.style.display = "none";
 
         mainFrame.style.display = "block";
 
         startTracking();
 
+      }else{
+
+        nameScreen.style.display = "none";
+
+        telegramScreen.style.display = "flex";
+
       }
 
-      loadLeaderboard();
+    }
+
+    // SAVE NAME
+
+    saveNameBtn.addEventListener("click", async()=>{
+
+      const username =
+        document.getElementById("username")
+        .value
+        .trim();
+
+      if(username.length < 2){
+
+        alert("Please enter a valid name");
+
+        return;
+
+      }
+
+      localStorage.setItem(
+        "rankerzone_name",
+        username
+      );
+
+      localStorage.setItem(
+        "rankerzone_watchtime",
+        "0"
+      );
+
+      // CREATE USER
+
+      await setDoc(
+
+        doc(db,"students",username),
+
+        {
+
+          name:username,
+
+          watchTime:0
+
+        },
+
+        { merge:true }
+
+      );
+
+      nameScreen.style.display = "none";
+
+      telegramScreen.style.display = "flex";
 
     });
 
-    // SHOW CONTINUE BUTTON
+    // JOIN TG
 
     joinBtn.addEventListener("click",()=>{
 
       setTimeout(()=>{
+
         continueBtn.style.display = "block";
+
       },1000);
 
     });
@@ -304,7 +424,10 @@
 
     continueBtn.addEventListener("click",()=>{
 
-      localStorage.setItem("rankerzone_access","true");
+      localStorage.setItem(
+        "rankerzone_access",
+        "true"
+      );
 
       telegramScreen.style.display = "none";
 
@@ -314,114 +437,131 @@
 
     });
 
-    // WATCH TIME TRACKER
+    // TRACK WATCHTIME
 
     function startTracking(){
 
-      startTime = Date.now();
+      setInterval(async()=>{
 
-      setInterval(()=>{
+        let currentTime =
+          parseInt(
 
-        let totalTime =
-          parseInt(localStorage.getItem("rankerzone_watchtime") || 0);
+            localStorage.getItem(
+              "rankerzone_watchtime"
+            ) || 0
 
-        totalTime += 1;
+          );
+
+        currentTime++;
 
         localStorage.setItem(
           "rankerzone_watchtime",
-          totalTime
+          currentTime
         );
 
-        updateLeaderboard();
+        const username =
+          localStorage.getItem(
+            "rankerzone_name"
+          );
+
+        await setDoc(
+
+          doc(db,"students",username),
+
+          {
+
+            name:username,
+
+            watchTime:currentTime
+
+          },
+
+          { merge:true }
+
+        );
 
       },1000);
 
     }
 
-    // UPDATE LEADERBOARD
+    // REALTIME LEADERBOARD
 
-    function updateLeaderboard(){
+    onSnapshot(
 
-      let users =
-        JSON.parse(localStorage.getItem("rankerzone_leaderboard") || "[]");
+      collection(db,"students"),
 
-      const name =
-        localStorage.getItem("rankerzone_name");
+      (snapshot)=>{
 
-      const watchtime =
-        parseInt(localStorage.getItem("rankerzone_watchtime") || 0);
+        let users = [];
 
-      const existing =
-        users.find(user => user.name === name);
+        snapshot.forEach((docu)=>{
 
-      if(existing){
+          users.push(docu.data());
 
-        existing.time = watchtime;
+        });
 
-      }else{
+        users.sort(
+          (a,b)=>b.watchTime-a.watchTime
+        );
 
-        users.push({
-          name:name,
-          time:watchtime
+        const board =
+          document.getElementById(
+            "leaderboardList"
+          );
+
+        board.innerHTML = "";
+
+        users.forEach((user,index)=>{
+
+          const item =
+            document.createElement("div");
+
+          item.className = "leader-item";
+
+          item.innerHTML = `
+
+            <div>
+
+              <div class="rank">
+
+                #${index+1} ${user.name}
+
+              </div>
+
+            </div>
+
+            <div>
+
+              ${formatTime(user.watchTime)}
+
+            </div>
+
+          `;
+
+          board.appendChild(item);
+
         });
 
       }
 
-      users.sort((a,b)=>b.time-a.time);
-
-      localStorage.setItem(
-        "rankerzone_leaderboard",
-        JSON.stringify(users)
-      );
-
-      loadLeaderboard();
-
-    }
-
-    // LOAD LEADERBOARD
-
-    function loadLeaderboard(){
-
-      const board =
-        document.getElementById("leaderboardList");
-
-      let users =
-        JSON.parse(localStorage.getItem("rankerzone_leaderboard") || "[]");
-
-      users.sort((a,b)=>b.time-a.time);
-
-      board.innerHTML = "";
-
-      users.slice(0,10).forEach((user,index)=>{
-
-        const div = document.createElement("div");
-
-        div.className = "leader-item";
-
-        div.innerHTML = `
-          <span>#${index+1} ${user.name}</span>
-          <span>${formatTime(user.time)}</span>
-        `;
-
-        board.appendChild(div);
-
-      });
-
-    }
+    );
 
     // FORMAT TIME
 
     function formatTime(seconds){
 
-      const h = Math.floor(seconds / 3600);
-      const m = Math.floor((seconds % 3600) / 60);
-      const s = seconds % 60;
+      const hrs =
+        Math.floor(seconds / 3600);
 
-      return `${h}h ${m}m ${s}s`;
+      const mins =
+        Math.floor((seconds % 3600) / 60);
+
+      const secs =
+        seconds % 60;
+
+      return `${hrs}h ${mins}m ${secs}s`;
 
     }
-
-    loadLeaderboard();
 
   </script>
 
