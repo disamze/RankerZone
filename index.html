@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>RankerZone</title>
 
   <style>
@@ -16,15 +22,8 @@
 
     body{
       background:#020617;
-      overflow:hidden;
       color:white;
-    }
-
-    iframe{
-      width:100%;
-      height:100vh;
-      border:none;
-      display:none;
+      overflow:hidden;
     }
 
     .screen{
@@ -33,7 +32,13 @@
       display:flex;
       justify-content:center;
       align-items:center;
-      background:linear-gradient(135deg,#020617,#0f172a,#1e293b);
+      background:
+      linear-gradient(
+        135deg,
+        #020617,
+        #0f172a,
+        #1e293b
+      );
       z-index:999;
       padding:20px;
     }
@@ -51,21 +56,30 @@
     }
 
     @keyframes fadeIn{
+
       from{
         opacity:0;
         transform:translateY(20px);
       }
+
       to{
         opacity:1;
         transform:translateY(0);
       }
+
     }
 
     .logo{
       font-size:42px;
       font-weight:bold;
       margin-bottom:15px;
-      background:linear-gradient(90deg,#38bdf8,#818cf8);
+      background:
+      linear-gradient(
+        90deg,
+        #38bdf8,
+        #818cf8
+      );
+
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
     }
@@ -104,7 +118,8 @@
       text-align:center;
     }
 
-    button:hover,a:hover{
+    button:hover,
+    a:hover{
       transform:scale(1.03);
     }
 
@@ -164,29 +179,46 @@
     }
 
   </style>
+
 </head>
+
 <body>
 
   <!-- NAME SCREEN -->
 
-  <div class="screen" id="nameScreen">
+  <div
+    class="screen"
+    id="nameScreen"
+  >
 
     <div class="card">
 
-      <div class="logo">RankerZone</div>
+      <div class="logo">
+        RankerZone
+      </div>
 
       <div class="subtitle">
-        Welcome to RankerZone.<br><br>
+
+        Welcome to RankerZone.
+        <br><br>
+
         Enter your name to continue.
+
       </div>
 
       <input
         type="text"
         id="username"
-        placeholder="Enter your name">
+        placeholder="Enter your name"
+      >
 
-      <button class="primary" id="saveName">
+      <button
+        class="primary"
+        id="saveName"
+      >
+
         Continue
+
       </button>
 
     </div>
@@ -195,19 +227,35 @@
 
   <!-- TELEGRAM SCREEN -->
 
-  <div class="screen" id="telegramScreen" style="display:none;">
+  <div
+    class="screen"
+    id="telegramScreen"
+    style="display:none;"
+  >
 
     <div class="card">
 
-      <div class="logo">RankerZone</div>
+      <div class="logo">
+        RankerZone
+      </div>
 
       <div class="subtitle">
 
-        🔓 Access Locked<br><br>
+        🔓 Access Locked
+        <br><br>
 
-        Step 1: Join official Telegram group<br>
-        Step 2: Return back to this page<br>
-        Step 3: Click Continue to access RankerZone
+        Step 1:
+        Join official Telegram group
+
+        <br>
+
+        Step 2:
+        Return back to this page
+
+        <br>
+
+        Step 3:
+        Click Continue
 
       </div>
 
@@ -215,15 +263,19 @@
         href="https://t.me/+B0VhFAE78BUzYzM1"
         target="_blank"
         class="primary"
-        id="joinBtn">
+        id="joinBtn"
+      >
 
         Join Telegram
 
       </a>
 
-      <button class="success" id="continueBtn">
+      <button
+        class="success"
+        id="continueBtn"
+      >
 
-        Continue to RankerZone
+        Continue to DeltaPro
 
       </button>
 
@@ -231,7 +283,9 @@
 
       <div class="leaderboard">
 
-        <h3>🏆 Global Watch Time Leaderboard</h3>
+        <h3>
+          🏆 Global Watch Time Leaderboard
+        </h3>
 
         <div id="leaderboardList"></div>
 
@@ -241,12 +295,7 @@
 
   </div>
 
-  <!-- IFRAME -->
-
-  <iframe
-    id="mainFrame"
-    src="https://deltastudy.site">
-  </iframe>
+  <!-- WATERMARK -->
 
   <div class="watermark">
 
@@ -256,321 +305,466 @@
 
   <!-- FIREBASE -->
 
-<script type="module">
+  <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+    import { initializeApp }
 
-import { getAnalytics }
-from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
+    from
+    "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  collection,
-  onSnapshot
-}
-from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+    import { getAnalytics }
 
-const firebaseConfig = {
+    from
+    "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
 
-  apiKey: "YOUR_API_KEY",
-  authDomain: "rankerzone-92cfe.firebaseapp.com",
-  projectId: "rankerzone-92cfe",
-  storageBucket: "rankerzone-92cfe.firebasestorage.app",
-  messagingSenderId: "494298642095",
-  appId: "1:494298642095:web:3d7a0ae53ff4b60610c65a",
-  measurementId: "G-1Z5KMJHNN4"
+    import {
 
-};
+      getFirestore,
+      doc,
+      setDoc,
+      collection,
+      onSnapshot
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getFirestore(app);
+    }
 
-const nameScreen = document.getElementById("nameScreen");
-const telegramScreen = document.getElementById("telegramScreen");
-const mainFrame = document.getElementById("mainFrame");
+    from
+    "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
-const saveNameBtn = document.getElementById("saveName");
-const continueBtn = document.getElementById("continueBtn");
-const joinBtn = document.getElementById("joinBtn");
+    // FIREBASE CONFIG
 
-const savedName =
-  localStorage.getItem("rankerzone_name");
+    const firebaseConfig = {
 
-const unlocked =
-  localStorage.getItem("rankerzone_access");
+      apiKey:
+      "YOUR_API_KEY",
 
-function showMainSite(){
+      authDomain:
+      "rankerzone-92cfe.firebaseapp.com",
 
-  telegramScreen.style.display = "none";
-  nameScreen.style.display = "none";
+      projectId:
+      "rankerzone-92cfe",
 
-  document.body.style.overflow = "auto";
+      storageBucket:
+      "rankerzone-92cfe.firebasestorage.app",
 
-  mainFrame.style.display = "block";
+      messagingSenderId:
+      "494298642095",
 
-  // iframe blocked fallback
+      appId:
+      "1:494298642095:web:3d7a0ae53ff4b60610c65a",
 
-  setTimeout(() => {
+      measurementId:
+      "G-1Z5KMJHNN4"
 
-    try {
+    };
 
-      const test =
-        mainFrame.contentWindow.location.href;
+    // INIT
 
-    } catch(err){
+    const app =
+      initializeApp(firebaseConfig);
 
-      alert(
-        "This website blocks iframe embedding. Opening directly."
+    const analytics =
+      getAnalytics(app);
+
+    const db =
+      getFirestore(app);
+
+    // ELEMENTS
+
+    const nameScreen =
+      document.getElementById(
+        "nameScreen"
       );
+
+    const telegramScreen =
+      document.getElementById(
+        "telegramScreen"
+      );
+
+    const saveNameBtn =
+      document.getElementById(
+        "saveName"
+      );
+
+    const continueBtn =
+      document.getElementById(
+        "continueBtn"
+      );
+
+    const joinBtn =
+      document.getElementById(
+        "joinBtn"
+      );
+
+    // LOCAL STORAGE
+
+    const savedName =
+      localStorage.getItem(
+        "rankerzone_name"
+      );
+
+    const unlocked =
+      localStorage.getItem(
+        "rankerzone_access"
+      );
+
+    // AUTO LOGIN
+
+    if(savedName && unlocked === "true"){
 
       window.location.href =
-        "https://deltastudy.site";
+      "https://deltastudy.site/deltapro";
 
     }
 
-  },2000);
+    // SECOND VISIT
 
-  startTracking();
+    else if(savedName){
 
-}
+      nameScreen.style.display =
+      "none";
 
-// already logged in
+      telegramScreen.style.display =
+      "flex";
 
-if(savedName){
+    }
 
-  if(unlocked === "true"){
+    // SAVE NAME
 
-    showMainSite();
+    saveNameBtn.addEventListener(
 
-  }else{
+      "click",
 
-    nameScreen.style.display = "none";
-    telegramScreen.style.display = "flex";
+      async()=>{
 
-  }
+        const username =
 
-}
+          document
+          .getElementById(
+            "username"
+          )
+          .value
+          .trim();
 
-// save name
+        if(username.length < 2){
 
-saveNameBtn.addEventListener("click", async()=>{
+          alert(
+            "Please enter valid name"
+          );
 
-  const username =
-    document.getElementById("username")
-    .value
-    .trim();
+          return;
 
-  if(username.length < 2){
+        }
 
-    alert("Please enter valid name");
-    return;
+        saveNameBtn.disabled =
+        true;
 
-  }
+        saveNameBtn.innerText =
+        "Please wait...";
 
-  saveNameBtn.innerText = "Please wait...";
-  saveNameBtn.disabled = true;
+        try{
 
-  try{
+          localStorage.setItem(
 
-    localStorage.setItem(
-      "rankerzone_name",
-      username
+            "rankerzone_name",
+            username
+
+          );
+
+          localStorage.setItem(
+
+            "rankerzone_watchtime",
+            "0"
+
+          );
+
+          await setDoc(
+
+            doc(
+              db,
+              "students",
+              username
+            ),
+
+            {
+
+              name:username,
+
+              watchTime:0
+
+            },
+
+            { merge:true }
+
+          );
+
+          nameScreen.style.display =
+          "none";
+
+          telegramScreen.style.display =
+          "flex";
+
+        }
+
+        catch(err){
+
+          console.log(err);
+
+          alert(
+
+            "Firestore permission denied. Check Firebase rules."
+
+          );
+
+        }
+
+        saveNameBtn.disabled =
+        false;
+
+        saveNameBtn.innerText =
+        "Continue";
+
+      }
+
     );
 
-    localStorage.setItem(
-      "rankerzone_watchtime",
-      "0"
+    // JOIN TELEGRAM
+
+    joinBtn.addEventListener(
+
+      "click",
+
+      ()=>{
+
+        setTimeout(()=>{
+
+          continueBtn.style.display =
+          "block";
+
+        },1000);
+
+      }
+
     );
 
-    await setDoc(
+    // CONTINUE
 
-      doc(db,"students",username),
+    continueBtn.addEventListener(
 
-      {
-        name: username,
-        watchTime: 0
-      },
+      "click",
 
-      { merge:true }
+      ()=>{
 
-    );
+        localStorage.setItem(
 
-    nameScreen.style.display = "none";
-    telegramScreen.style.display = "flex";
+          "rankerzone_access",
+          "true"
 
-  }catch(err){
-
-    console.error(err);
-
-    alert(
-      "Database permission issue. Check Firestore rules."
-    );
-
-  }
-
-  saveNameBtn.innerText = "Continue";
-  saveNameBtn.disabled = false;
-
-});
-
-// join telegram
-
-joinBtn.addEventListener("click",()=>{
-
-  setTimeout(()=>{
-
-    continueBtn.style.display = "block";
-
-  },1000);
-
-});
-
-// continue
-
-continueBtn.addEventListener("click",()=>{
-
-  localStorage.setItem(
-    "rankerzone_access",
-    "true"
-  );
-
-  showMainSite();
-
-});
-
-// watchtime tracking
-
-function startTracking(){
-
-  setInterval(async()=>{
-
-    try{
-
-      let currentTime = parseInt(
-
-        localStorage.getItem(
-          "rankerzone_watchtime"
-        ) || 0
-
-      );
-
-      currentTime++;
-
-      localStorage.setItem(
-        "rankerzone_watchtime",
-        currentTime
-      );
-
-      const username =
-        localStorage.getItem(
-          "rankerzone_name"
         );
 
-      await setDoc(
+        window.location.href =
+        "https://deltastudy.site/deltapro";
 
-        doc(db,"students",username),
+      }
 
-        {
-          name: username,
-          watchTime: currentTime
-        },
+    );
 
-        { merge:true }
+    // WATCHTIME TRACKING
 
-      );
+    function startTracking(){
 
-    }catch(err){
+      setInterval(async()=>{
 
-      console.log(err);
+        try{
+
+          let currentTime =
+
+            parseInt(
+
+              localStorage.getItem(
+
+                "rankerzone_watchtime"
+
+              ) || 0
+
+            );
+
+          currentTime++;
+
+          localStorage.setItem(
+
+            "rankerzone_watchtime",
+
+            currentTime
+
+          );
+
+          const username =
+
+            localStorage.getItem(
+
+              "rankerzone_name"
+
+            );
+
+          await setDoc(
+
+            doc(
+              db,
+              "students",
+              username
+            ),
+
+            {
+
+              name:username,
+
+              watchTime:currentTime
+
+            },
+
+            { merge:true }
+
+          );
+
+        }
+
+        catch(err){
+
+          console.log(err);
+
+        }
+
+      },1000);
 
     }
 
-  },1000);
+    // START TRACKING
 
-}
+    startTracking();
 
-// leaderboard
+    // REALTIME LEADERBOARD
 
-onSnapshot(
+    onSnapshot(
 
-  collection(db,"students"),
+      collection(
+        db,
+        "students"
+      ),
 
-  (snapshot)=>{
+      (snapshot)=>{
 
-    let users = [];
+        let users = [];
 
-    snapshot.forEach((docu)=>{
+        snapshot.forEach((docu)=>{
 
-      users.push(docu.data());
+          users.push(
+            docu.data()
+          );
 
-    });
+        });
 
-    users.sort(
-      (a,b)=>b.watchTime-a.watchTime
+        users.sort(
+
+          (a,b)=>
+
+          b.watchTime -
+          a.watchTime
+
+        );
+
+        const board =
+
+          document.getElementById(
+            "leaderboardList"
+          );
+
+        board.innerHTML = "";
+
+        users.forEach(
+
+          (user,index)=>{
+
+            const item =
+
+              document
+              .createElement(
+                "div"
+              );
+
+            item.className =
+            "leader-item";
+
+            item.innerHTML = `
+
+              <div>
+
+                <div class="rank">
+
+                  #${index+1}
+                  ${user.name}
+
+                </div>
+
+              </div>
+
+              <div>
+
+                ${formatTime(
+                  user.watchTime
+                )}
+
+              </div>
+
+            `;
+
+            board.appendChild(
+              item
+            );
+
+          }
+
+        );
+
+      },
+
+      (error)=>{
+
+        console.log(error);
+
+      }
+
     );
 
-    const board =
-      document.getElementById(
-        "leaderboardList"
-      );
+    // FORMAT TIME
 
-    board.innerHTML = "";
+    function formatTime(seconds){
 
-    users.forEach((user,index)=>{
+      const hrs =
 
-      const item =
-        document.createElement("div");
+        Math.floor(
+          seconds / 3600
+        );
 
-      item.className = "leader-item";
+      const mins =
 
-      item.innerHTML = `
+        Math.floor(
 
-        <div>
-          <div class="rank">
-            #${index+1} ${user.name}
-          </div>
-        </div>
+          (seconds % 3600) / 60
 
-        <div>
-          ${formatTime(user.watchTime)}
-        </div>
+        );
 
+      const secs =
+        seconds % 60;
+
+      return `
+        ${hrs}h
+        ${mins}m
+        ${secs}s
       `;
 
-      board.appendChild(item);
+    }
 
-    });
-
-  },
-
-  (error)=>{
-
-    console.log(error);
-
-  }
-
-);
-
-function formatTime(seconds){
-
-  const hrs =
-    Math.floor(seconds / 3600);
-
-  const mins =
-    Math.floor((seconds % 3600) / 60);
-
-  const secs =
-    seconds % 60;
-
-  return `${hrs}h ${mins}m ${secs}s`;
-
-}
-
-</script>
+  </script>
 
 </body>
 </html>
