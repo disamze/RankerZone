@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>RankerZone</title>
 
   <style>
@@ -10,34 +11,41 @@
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:Arial, sans-serif;
+      font-family:Arial,sans-serif;
     }
 
     body{
+      background:#020617;
       overflow:hidden;
-      background:#0f172a;
+      color:white;
     }
 
-    .ad-page{
+    iframe{
+      width:100%;
+      height:100vh;
+      border:none;
+      display:none;
+    }
+
+    .screen{
       position:fixed;
       inset:0;
       display:flex;
-      align-items:center;
       justify-content:center;
+      align-items:center;
       background:linear-gradient(135deg,#020617,#0f172a,#1e293b);
-      z-index:1000;
+      z-index:999;
     }
 
     .card{
-      width:380px;
+      width:390px;
       background:rgba(15,23,42,0.95);
       border:1px solid rgba(255,255,255,0.1);
       border-radius:25px;
       padding:35px;
       text-align:center;
-      color:white;
       box-shadow:0 0 40px rgba(0,0,0,0.5);
-      animation:fadeIn 1s ease;
+      animation:fadeIn 0.8s ease;
     }
 
     @keyframes fadeIn{
@@ -54,130 +62,170 @@
     .logo{
       font-size:42px;
       font-weight:bold;
+      margin-bottom:15px;
       background:linear-gradient(90deg,#38bdf8,#818cf8);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
-      margin-bottom:10px;
     }
 
     .subtitle{
       opacity:0.8;
       margin-bottom:25px;
-      font-size:15px;
-    }
-
-    .tg-box{
-      background:#111827;
-      border-radius:18px;
-      padding:20px;
-      margin-bottom:25px;
-    }
-
-    .tg-box h2{
-      margin-bottom:10px;
-      color:#38bdf8;
-    }
-
-    .tg-box p{
-      font-size:14px;
-      opacity:0.8;
-      margin-bottom:18px;
       line-height:1.5;
     }
 
-    .join-btn{
-      display:inline-block;
-      text-decoration:none;
-      background:#38bdf8;
-      color:black;
-      font-weight:bold;
-      padding:14px 28px;
+    input{
+      width:100%;
+      padding:14px;
+      border:none;
+      outline:none;
       border-radius:12px;
-      transition:0.3s;
+      margin-top:15px;
+      background:#111827;
+      color:white;
+      font-size:15px;
     }
 
-    .join-btn:hover{
-      transform:scale(1.05);
-    }
-
-    .continue-btn{
+    button,a{
       width:100%;
       padding:14px;
       border:none;
       border-radius:12px;
-      background:#22c55e;
-      color:white;
+      margin-top:18px;
       font-size:16px;
       font-weight:bold;
       cursor:pointer;
-      display:none;
-      margin-top:10px;
+      transition:0.3s;
+      text-decoration:none;
+      display:block;
+      text-align:center;
     }
 
-    iframe{
-      width:100%;
-      height:100vh;
-      border:none;
+    button:hover,a:hover{
+      transform:scale(1.03);
+    }
+
+    .primary{
+      background:#38bdf8;
+      color:black;
+    }
+
+    .success{
+      background:#22c55e;
+      color:white;
       display:none;
+    }
+
+    .leaderboard{
+      margin-top:25px;
+      text-align:left;
+      background:#111827;
+      border-radius:15px;
+      padding:15px;
+      max-height:220px;
+      overflow:auto;
+    }
+
+    .leaderboard h3{
+      text-align:center;
+      margin-bottom:10px;
+      color:#38bdf8;
+    }
+
+    .leader-item{
+      display:flex;
+      justify-content:space-between;
+      margin:8px 0;
+      padding:10px;
+      background:#1e293b;
+      border-radius:10px;
+      font-size:14px;
     }
 
     .watermark{
       position:fixed;
       bottom:15px;
       right:15px;
-      color:white;
       background:rgba(0,0,0,0.5);
-      padding:8px 14px;
-      border-radius:10px;
+      padding:10px 15px;
+      border-radius:12px;
       z-index:9999;
-      font-size:14px;
-      backdrop-filter:blur(5px);
+      backdrop-filter:blur(6px);
     }
+
   </style>
 </head>
 <body>
 
-  <div class="ad-page" id="adPage">
+  <!-- NAME SCREEN -->
+
+  <div class="screen" id="nameScreen">
     <div class="card">
 
       <div class="logo">RankerZone</div>
 
       <div class="subtitle">
-        Premium Study Content & Lectures
+        Enter your name to continue
       </div>
 
-      <div class="tg-box">
-        <h2>Join Official Telegram</h2>
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter your name">
 
-        <p>
-  🔓 Access Locked
-
-  <br><br>
-
-  Step 1: Click on <b>Join Telegram</b><br>
-  Step 2: Join the official RankerZone Telegram channel<br>
-  Step 3: Return back to this page<br>
-  Step 4: Click Continue to access content
-</p>
-
-        <a
-          href="https://t.me/+B0VhFAE78BUzYzM1"
-          target="_blank"
-          class="join-btn"
-          id="joinBtn">
-          Join Telegram
-        </a>
-      </div>
-
-      <button class="continue-btn" id="continueBtn">
-        Continue to RankerZone
+      <button class="primary" id="saveName">
+        Continue
       </button>
 
     </div>
   </div>
 
+  <!-- TELEGRAM SCREEN -->
+
+  <div class="screen" id="telegramScreen" style="display:none;">
+    <div class="card">
+
+      <div class="logo">RankerZone</div>
+
+      <div class="subtitle">
+        🔓 Access Locked
+
+        <br><br>
+
+        Step 1: Join the official Telegram group<br>
+        Step 2: Return back to this page<br>
+        Step 3: Click Continue to access content
+      </div>
+
+      <a
+        href="https://t.me/+B0VhFAE78BUzYzM1"
+        target="_blank"
+        class="primary"
+        id="joinBtn">
+        Join Telegram
+      </a>
+
+      <button class="success" id="continueBtn">
+        Continue to RankerZone
+      </button>
+
+      <!-- LEADERBOARD -->
+
+      <div class="leaderboard">
+
+        <h3>🏆 Watch Time Leaderboard</h3>
+
+        <div id="leaderboardList"></div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IFRAME -->
+
   <iframe
-    id="siteFrame"
+    id="mainFrame"
     src="https://eduvibe-nt.pages.dev/">
   </iframe>
 
@@ -186,24 +234,195 @@
   </div>
 
   <script>
-    const joinBtn = document.getElementById("joinBtn");
+
+    const nameScreen = document.getElementById("nameScreen");
+    const telegramScreen = document.getElementById("telegramScreen");
+    const mainFrame = document.getElementById("mainFrame");
+
+    const saveName = document.getElementById("saveName");
     const continueBtn = document.getElementById("continueBtn");
+    const joinBtn = document.getElementById("joinBtn");
 
-    joinBtn.addEventListener("click", () => {
+    let startTime;
 
-      setTimeout(() => {
+    // CHECK ACCESS
+
+    if(localStorage.getItem("rankerzone_access") === "true"){
+
+      nameScreen.style.display = "none";
+      telegramScreen.style.display = "none";
+      mainFrame.style.display = "block";
+
+      startTracking();
+
+    }
+
+    // SAVE NAME
+
+    saveName.addEventListener("click",()=>{
+
+      const username = document.getElementById("username").value.trim();
+
+      if(username.length < 2){
+        alert("Please enter your name");
+        return;
+      }
+
+      localStorage.setItem("rankerzone_name",username);
+
+      nameScreen.style.display = "none";
+
+      // IF FIRST TIME
+
+      if(localStorage.getItem("rankerzone_access") !== "true"){
+
+        telegramScreen.style.display = "flex";
+
+      }else{
+
+        mainFrame.style.display = "block";
+
+        startTracking();
+
+      }
+
+      loadLeaderboard();
+
+    });
+
+    // SHOW CONTINUE BUTTON
+
+    joinBtn.addEventListener("click",()=>{
+
+      setTimeout(()=>{
         continueBtn.style.display = "block";
-      }, 1000);
+      },1000);
 
     });
 
-    continueBtn.addEventListener("click", () => {
+    // CONTINUE
 
-      document.getElementById("adPage").style.display = "none";
+    continueBtn.addEventListener("click",()=>{
 
-      document.getElementById("siteFrame").style.display = "block";
+      localStorage.setItem("rankerzone_access","true");
+
+      telegramScreen.style.display = "none";
+
+      mainFrame.style.display = "block";
+
+      startTracking();
 
     });
+
+    // WATCH TIME TRACKER
+
+    function startTracking(){
+
+      startTime = Date.now();
+
+      setInterval(()=>{
+
+        let totalTime =
+          parseInt(localStorage.getItem("rankerzone_watchtime") || 0);
+
+        totalTime += 1;
+
+        localStorage.setItem(
+          "rankerzone_watchtime",
+          totalTime
+        );
+
+        updateLeaderboard();
+
+      },1000);
+
+    }
+
+    // UPDATE LEADERBOARD
+
+    function updateLeaderboard(){
+
+      let users =
+        JSON.parse(localStorage.getItem("rankerzone_leaderboard") || "[]");
+
+      const name =
+        localStorage.getItem("rankerzone_name");
+
+      const watchtime =
+        parseInt(localStorage.getItem("rankerzone_watchtime") || 0);
+
+      const existing =
+        users.find(user => user.name === name);
+
+      if(existing){
+
+        existing.time = watchtime;
+
+      }else{
+
+        users.push({
+          name:name,
+          time:watchtime
+        });
+
+      }
+
+      users.sort((a,b)=>b.time-a.time);
+
+      localStorage.setItem(
+        "rankerzone_leaderboard",
+        JSON.stringify(users)
+      );
+
+      loadLeaderboard();
+
+    }
+
+    // LOAD LEADERBOARD
+
+    function loadLeaderboard(){
+
+      const board =
+        document.getElementById("leaderboardList");
+
+      let users =
+        JSON.parse(localStorage.getItem("rankerzone_leaderboard") || "[]");
+
+      users.sort((a,b)=>b.time-a.time);
+
+      board.innerHTML = "";
+
+      users.slice(0,10).forEach((user,index)=>{
+
+        const div = document.createElement("div");
+
+        div.className = "leader-item";
+
+        div.innerHTML = `
+          <span>#${index+1} ${user.name}</span>
+          <span>${formatTime(user.time)}</span>
+        `;
+
+        board.appendChild(div);
+
+      });
+
+    }
+
+    // FORMAT TIME
+
+    function formatTime(seconds){
+
+      const h = Math.floor(seconds / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
+      const s = seconds % 60;
+
+      return `${h}h ${m}m ${s}s`;
+
+    }
+
+    loadLeaderboard();
+
   </script>
 
 </body>
